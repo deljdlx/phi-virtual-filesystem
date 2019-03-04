@@ -91,7 +91,7 @@ class Manager
             return $this->virtualPathes[$normalized];
         }
         else {
-            throw new Exception('Virtual path "'.$path.'" is not registered');
+            throw new \Exception('Virtual path "'.$path.'" is not registered');
         }
     }
 
