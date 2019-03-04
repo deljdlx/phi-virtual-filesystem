@@ -73,6 +73,9 @@ class Manager
 
     public function getPath($path)
     {
+
+        $normalized = $this->normalizePath($path);
+
         if(is_dir(realpath($path))) {
             return $this->normalizePath(realpath($path));
         }
@@ -81,6 +84,9 @@ class Manager
 
         if(array_key_exists($path, $this->virtualPathes)) {
             return $this->virtualPathes[$path];
+        }
+        elseif(array_key_exists($normalized, $this->virtualPathes)) {
+            return $this->virtualPathes[$normalized];
         }
         else {
             throw new Exception('Virtual path "'.$path.'" is not registered');
