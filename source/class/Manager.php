@@ -29,7 +29,7 @@ class Manager
     {
 
         if(is_dir($virtualPath)) {
-            $this->virtualPathes[$virtualPath] = $this->normalizePath(realpath($virtualPath));
+            $this->virtualPathes[$virtualPath] = new Path($virtualPath);
 
             if($name) {
                 $this->virtualPathesByName[$name] = &$this->virtualPathes[$virtualPath];
@@ -37,9 +37,11 @@ class Manager
             return $this;
         }
 
-        $path = $this->normalizePath(realpath($realPath));
+        //$path = $this->normalizePath(realpath($realPath));
 
-        if(!$path) {
+        $path = new Path($realPath);
+
+        if(!$path->exists()) {
             throw new Exception('Path "'.$realPath.'" does not exists');
         }
 
