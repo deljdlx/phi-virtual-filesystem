@@ -7,8 +7,8 @@ class Path
 {
 
 
-    protected $calledPath = '';
-    protected $realpath  ='';
+    private $calledPath = '';
+    private $realpath  ='';
 
 
 
@@ -19,6 +19,18 @@ class Path
     }
 
 
+    /**
+     * @return bool
+     */
+    public function isSymLink()
+    {
+        return is_link($this->calledPath);
+    }
+
+
+    /**
+     * @return bool
+     */
     public function exists()
     {
         if(is_dir($this->realpath)) {
@@ -33,14 +45,18 @@ class Path
     }
 
 
-
+    /**
+     * @return string
+     */
     public function getNormalized()
     {
         return $this->normalizePath($this->realpath);
     }
 
 
-
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getNormalized($this->realpath);
